@@ -18,7 +18,7 @@ addEventListener("DOMContentLoaded", function () {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                'Accept': "application/json",
+                Accept: "application/json",
             },
             body: JSON.stringify({
                 email: inputEmail,
@@ -32,25 +32,29 @@ addEventListener("DOMContentLoaded", function () {
                 return res.json();
             })
             .then((data) => {
-               if (data.status == 200) {
-                sessionStorage.setItem('firstname', data.user.firstname);
-                sessionStorage.setItem('lastname', data.user.lastname);
-                sessionStorage.setItem('middlename', data.user.middlename);
-                sessionStorage.setItem('role', data.user.role);
-                sessionStorage.setItem('address', data.user.address);
-                sessionStorage.setItem('phoneNo', data.user.phoneNo);
-                sessionStorage.setItem('email', data.user.email);
-                sessionStorage.setItem('profileImg', data.user.profileImg);
+                if (data.status == 200) {
+                    // sessionStorage.setItem('middlename', data.user.middlename);
+                    // sessionStorage.setItem('address', data.user.address);
+                    // sessionStorage.setItem('phoneNo', data.user.phoneNo);
+                    sessionStorage.setItem("firstName", data.user.firstName);
+                    sessionStorage.setItem("lastName", data.user.lastName);
+                    sessionStorage.setItem("occupation", data.user.occupation);
+                    sessionStorage.setItem("profileImg", data.user.profileImg);
+                    sessionStorage.setItem("email", data.user.email);
+                    sessionStorage.setItem("role", data.user.role);
 
-                if (data.user.role == 'admin') {
-                    location.href = '/admin/dashboard';
-                } 
-                
-                if (data.user.role == 'agent') {
-                    location.href = '/agent/dashboard';
+                    if (data.user.role == "admin") {
+                        location.href = "/admin/dashboard";
+                    } else if (data.user.role == "agent") {
+                        location.href = "/agent/dashboard";
+                    } else if (data.user.role == "client") {
+                        location.href = "/client/dashboard";
+                    } else {
+                        location.href = "/";
+                    }
+                } else {
+                    alert("Email and Password Does not Match!");
                 }
-
-               }
             });
     });
 });

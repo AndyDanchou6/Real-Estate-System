@@ -16,3 +16,4 @@ use App\Http\Controllers\UserController;
 */
 
 Route::post('/login', [UserController::class, 'login']);
+Route::get('/users/all', [UserController::class, 'allUsers']);

@@ -15,13 +15,16 @@ class AgentSeeder extends Seeder
     public function run(): void
     {
         $admin = User::create([
-            'firstname' => 'Andy',
-            'lastname' => 'Danchou',
+            'firstName' => 'Andy',
+            'middleName' => 'Levi',
+            'lastName' => 'Danchou',
             'email' => 'agent@realestate.com',
             'password' => Hash::make('andydanch0u'),
             'address' => 'Private',
             'phoneNo' => 'Private',
             'role' => 'agent',
+            'profileImg' => '/storage/img/agent/danchou.jpg',
+            'occupation' => 'Real Estate Agent'
         ]);
     }
 }

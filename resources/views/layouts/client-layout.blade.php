@@ -38,7 +38,7 @@
   ======================================================== -->
 
   <script>
-    if (sessionStorage.getItem('role') != 'admin') {
+    if (sessionStorage.getItem('role') != 'client') {
       location.href = "/notFound";
     }
   </script>
@@ -47,9 +47,9 @@
 
 <body>
 
-  @include('includes.admin.header')
+  @include('includes.client.header')
 
-  @include('includes.admin.sidebar')
+  @include('includes.client.sidebar')
 
   @yield('content')
 
@@ -74,6 +74,21 @@
   @yield('script')
 
   <script>
+    // function post(url) {
+    //   return fetch()
+    // }
+
+    // function get(url) {
+    //   return fetch(url).then(res => {
+    //     if (!res.ok) {
+    //       throw new Error ('Network response was bad.')
+    //     }
+
+    //     return res.json()
+    //   }).then(data => {
+    //     return data
+    //   })
+    // }
     addEventListener('DOMContentLoaded', function(event) {
       var logoutBtn = document.querySelector('#logoutBtn');
 
@@ -109,6 +124,19 @@
       } else {
         userOccupation.innerHTML = sessionStorage.getItem('occupation');
       }
+
+      // const allUsersApi = "/api/users/all";
+
+      // var testFetch = get(allUsersApi)
+      // .then(users => {
+      //   console.log(users.status);
+
+      //   var userList = users.data;
+
+      //   userList.forEach(function(user) {
+      //     console.log(user.id);
+      //   })
+      // });
 
     });
   </script>

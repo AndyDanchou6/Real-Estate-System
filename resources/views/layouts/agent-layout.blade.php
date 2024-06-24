@@ -39,7 +39,7 @@
 
   <script>
     if (sessionStorage.getItem('role') != 'agent') {
-      location.href = '/notFound';
+      location.href = "/notFound";
     }
   </script>
 
@@ -54,7 +54,7 @@
   @yield('content')
 
   @include('includes.footer')
-  
+
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -70,6 +70,48 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
+
+  @yield('script')
+
+  <script>
+    addEventListener('DOMContentLoaded', function(event) {
+      var logoutBtn = document.querySelector('#logoutBtn');
+
+      logoutBtn.style.cursor = 'pointer';
+
+      logoutBtn.addEventListener('click', function(event) {
+        sessionStorage.removeItem('role');
+        sessionStorage.removeItem('email');
+        sessionStorage.removeItem('lastName');
+        sessionStorage.removeItem('firstName');
+        sessionStorage.removeItem('occupation');
+        sessionStorage.removeItem('profileImg');
+
+        location.href = "/";
+      });
+
+      var userProfile = document.querySelector('#user-img');
+      var userName = document.querySelector('#user-name');
+      var userFullName = document.querySelector('#user-fullName');
+      var userOccupation = document.querySelector('#user-occupation');
+
+      userProfile.setAttribute('src', sessionStorage.getItem('profileImg'));
+
+      var userFirstName = sessionStorage.getItem('firstName');
+      var userLastName = sessionStorage.getItem('lastName');
+
+      userName.innerHTML = userFirstName[0].toUpperCase() + '. ' + userLastName;
+
+      userFullName.innerHTML = userFirstName + ' ' + userLastName;
+
+      if (sessionStorage.getItem('occupation') == null) {
+        userOccupation.innerHTML = sessionStorage.getItem('role');
+      } else {
+        userOccupation.innerHTML = sessionStorage.getItem('occupation');
+      }
+
+    });
+  </script>
 
 </body>
 

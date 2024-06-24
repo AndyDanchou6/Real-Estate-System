@@ -38,15 +38,11 @@
   ======================================================== -->
 
   <script>
-    addEventListener('DOMContentLoaded', function() {
-      if (localStorage.getItem('loginEmail') != null) {
+    if (sessionStorage.getItem('role')) {
+      var role = sessionStorage.getItem('role');
 
-        var inputForm = document.querySelector('#yourEmail');
-        var loginEmail = localStorage.getItem('loginEmail');
-
-        inputForm.value = loginEmail;
-      }
-    });
+      location.href = '/' + role + '/dashboard';
+    }
   </script>
 
 </head>
@@ -62,7 +58,7 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="" class="logo d-flex align-items-center w-auto">
+                <a href="#" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
                   <span class="d-none d-lg-block">Real Estate</span>
                 </a>
@@ -103,7 +99,7 @@
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="/register">Create an account</a></p>
+                      <p class="small mb-0">Don't have account? <a href="{{ route('auth.register') }}">Create an account</a></p>
                     </div>
                   </form>
 
@@ -142,6 +138,19 @@
   <!-- Template Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
   <script src="{{asset('assets/js/custom-login.js')}}"></script>
+
+  <script>
+    addEventListener('DOMContentLoaded', function() {
+
+      if (localStorage.getItem('loginEmail') != null) {
+
+        var inputForm = document.querySelector('#yourEmail');
+        var loginEmail = localStorage.getItem('loginEmail');
+
+        inputForm.value = loginEmail;
+      }
+    });
+  </script>
 
 </body>
 

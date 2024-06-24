@@ -22,6 +22,8 @@ class AdminSeeder extends Seeder
             'address' => 'Private',
             'phoneNo' => 'Private',
             'role' => 'admin',
+            'profileImg' => '/storage/img/admin/danchou.jpg',
+            'occupation' => 'Software Developer'
         ]);
     }
 }
