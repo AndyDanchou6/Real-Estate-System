@@ -38,7 +38,15 @@
   ======================================================== -->
 
   <script>
-    if (sessionStorage.getItem('role') != 'admin') {
+    var identifier = sessionStorage.getItem('nice');
+
+    if (!identifier) {
+      location.href = "/notFound";
+    }
+
+    let [role, index] = identifier.split('_');
+
+    if (role != '31C') {
       location.href = "/notFound";
     }
   </script>
@@ -74,41 +82,70 @@
   @yield('script')
 
   <script>
+    async function fetchApi(url, method = 'GET', headers = {}, data = null) {
+      try {
+        const fetchOptions = {
+          method: method.toUpperCase(),
+          headers: headers,
+        };
+
+        if (method.toUpperCase() !== 'GET' && data) {
+          fetchOptions.body = JSON.stringify(data);
+        }
+
+        const response = await fetch(url, fetchOptions);
+        const responseData = await response.json();
+
+        if (response.ok) {
+          return responseData;
+        } else {
+          throw new Error(`Request failed with status ${response.status}: ${responseData.message}`);
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        throw error;
+      }
+    }
+
     addEventListener('DOMContentLoaded', function(event) {
+      async function performLogout() {
+        try {
+          var token = sessionStorage.getItem('danchou');
+          var roleId = sessionStorage.getItem('nice');
+          let [role, id] = roleId.split('_');
+          const logoutApi = '/api/logout';
+          var method = 'POST';
+          var headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+          };
+          const data = {
+            id: id
+          };
+
+          const response = await fetchApi(logoutApi, method, headers, data);
+
+          console.log('Logout response:', response.status);
+
+          sessionStorage.removeItem('danchou');
+          sessionStorage.removeItem('nice');
+
+          window.location.href = '/';
+
+        } catch (error) {
+          alert('Logout error: ', error.message);
+        }
+      }
+
       var logoutBtn = document.querySelector('#logoutBtn');
 
       logoutBtn.style.cursor = 'pointer';
 
       logoutBtn.addEventListener('click', function(event) {
-        sessionStorage.removeItem('role');
-        sessionStorage.removeItem('email');
-        sessionStorage.removeItem('lastName');
-        sessionStorage.removeItem('firstName');
-        sessionStorage.removeItem('occupation');
-        sessionStorage.removeItem('profileImg');
 
-        location.href = "/";
+        performLogout();
       });
-
-      var userProfile = document.querySelector('#user-img');
-      var userName = document.querySelector('#user-name');
-      var userFullName = document.querySelector('#user-fullName');
-      var userOccupation = document.querySelector('#user-occupation');
-
-      userProfile.setAttribute('src', sessionStorage.getItem('profileImg'));
-
-      var userFirstName = sessionStorage.getItem('firstName');
-      var userLastName = sessionStorage.getItem('lastName');
-
-      userName.innerHTML = userFirstName[0].toUpperCase() + '. ' + userLastName;
-
-      userFullName.innerHTML = userFirstName + ' ' + userLastName;
-
-      if (sessionStorage.getItem('occupation') == null) {
-        userOccupation.innerHTML = sessionStorage.getItem('role');
-      } else {
-        userOccupation.innerHTML = sessionStorage.getItem('occupation');
-      }
 
     });
   </script>

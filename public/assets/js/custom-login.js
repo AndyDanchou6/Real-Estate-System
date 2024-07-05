@@ -18,7 +18,6 @@ addEventListener("DOMContentLoaded", function () {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Accept: "application/json",
             },
             body: JSON.stringify({
                 email: inputEmail,
@@ -33,21 +32,22 @@ addEventListener("DOMContentLoaded", function () {
             })
             .then((data) => {
                 if (data.status == 200) {
-                    // sessionStorage.setItem('middlename', data.user.middlename);
-                    // sessionStorage.setItem('address', data.user.address);
-                    // sessionStorage.setItem('phoneNo', data.user.phoneNo);
-                    sessionStorage.setItem("firstName", data.user.firstName);
-                    sessionStorage.setItem("lastName", data.user.lastName);
-                    sessionStorage.setItem("occupation", data.user.occupation);
-                    sessionStorage.setItem("profileImg", data.user.profileImg);
-                    sessionStorage.setItem("email", data.user.email);
-                    sessionStorage.setItem("role", data.user.role);
+                    sessionStorage.setItem("danchou", data.token);
 
-                    if (data.user.role == "admin") {
+                    if (data.role == "admin") {
+                        let roleID = "31C_" + data.id;
+
+                        sessionStorage.setItem("nice", roleID);
                         location.href = "/admin/dashboard";
-                    } else if (data.user.role == "agent") {
+                    } else if (data.role == "agent") {
+                        let roleID = "07_" + data.id;
+
+                        sessionStorage.setItem("nice", roleID);
                         location.href = "/agent/dashboard";
-                    } else if (data.user.role == "client") {
+                    } else if (data.role == roleID) {
+                        let roleID = "3W_" + data.id;
+
+                        sessionStorage.setItem("nice", roleID);
                         location.href = "/client/dashboard";
                     } else {
                         location.href = "/";

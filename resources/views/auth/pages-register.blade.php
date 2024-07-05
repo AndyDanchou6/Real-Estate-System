@@ -38,10 +38,9 @@
   ======================================================== -->
 
   <script>
-    if (sessionStorage.getItem('role')) {
-      var role = sessionStorage.getItem('role');
-
-      location.href = '/' + role + '/dashboard';
+    if (sessionStorage.getItem('nice')) {
+      
+      window.history.back()
     }
   </script>
 
