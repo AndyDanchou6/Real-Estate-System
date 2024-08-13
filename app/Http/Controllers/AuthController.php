@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -44,18 +45,30 @@ class AuthController extends Controller
 
             $token = $emailExists->createToken('31C073W')->plainTextToken;
 
+            $role = '23N';
+
+            if ($emailExists->role == 'admin') {
+                $role = '31C';
+            }
+
+            if ($emailExists->role == 'agent') {
+                $role = '07';
+            }
+
+            if ($emailExists->role == 'client') {
+                $role = '3W';
+            }
+
             return response()->json([
                 'status' => 200,
                 'message' => 'Password and Email Matched',
-                'role' => $emailExists->role,
-                'id' => $emailExists->id,
+                'role' => $role,
                 'token' => $token
             ]);
-
-        } catch (\Throwable $th) {
+        } catch (\Throwable $error) {
             return response()->json([
                 'status' => 500,
-                'message' => $th->getMessage()
+                'message' => $error->getMessage()
             ]);
         }
     }
@@ -64,7 +77,7 @@ class AuthController extends Controller
     {
         try {
 
-            $user = User::find($request->input('id'));
+            $user = Auth::user();
 
             if (!$user) {
                 return response()->json([
@@ -75,7 +88,7 @@ class AuthController extends Controller
 
             $tokens = $user->tokens;
 
-            foreach($tokens as $token) {
+            foreach ($tokens as $token) {
                 $token->delete();
             }
 
@@ -83,12 +96,22 @@ class AuthController extends Controller
                 'status' => 200,
                 'message' => 'Logout Successful'
             ]);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 500,
                 'message' => $th->getMessage()
             ]);
         }
+    }
+
+    public function logins()
+    {
+        $logins = Auth::user();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'User Found',
+            'data' => $logins
+        ]);
     }
 }

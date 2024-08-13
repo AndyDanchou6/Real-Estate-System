@@ -22,7 +22,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('users')->group(function () {
         Route::get('/all', [UserController::class, 'allUsers']);
+        Route::get('/loggedInUserData', [UserController::class, 'loggedInUserData']);
     });
-    
-    Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/logins', [AuthController::class, 'logins']);
 });

@@ -33,21 +33,13 @@ addEventListener("DOMContentLoaded", function () {
             .then((data) => {
                 if (data.status == 200) {
                     sessionStorage.setItem("danchou", data.token);
+                    sessionStorage.setItem("nice", data.role);
 
-                    if (data.role == "admin") {
-                        let roleID = "31C_" + data.id;
-
-                        sessionStorage.setItem("nice", roleID);
+                    if (data.role == "31C") {
                         location.href = "/admin/dashboard";
-                    } else if (data.role == "agent") {
-                        let roleID = "07_" + data.id;
-
-                        sessionStorage.setItem("nice", roleID);
+                    } else if (data.role == "07") {
                         location.href = "/agent/dashboard";
-                    } else if (data.role == roleID) {
-                        let roleID = "3W_" + data.id;
-
-                        sessionStorage.setItem("nice", roleID);
+                    } else if (data.role == "3W") {
                         location.href = "/client/dashboard";
                     } else {
                         location.href = "/";

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -26,5 +27,22 @@ class UserController extends Controller
                 'data' => $users
             ]);
         }
+    }
+
+    public function loggedInUserData() {
+        $userData = Auth::user();
+
+        if (!$userData) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'User Not Found'
+            ]);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'User data found',
+            'data' => $userData
+        ]);
     }
 }

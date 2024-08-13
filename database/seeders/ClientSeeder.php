@@ -23,7 +23,6 @@ class ClientSeeder extends Seeder
             'address' => 'Brgy. Hampangan Hilongos Leyte',
             'phoneNo' => '09307696919',
             'role' => 'client',
-            'profileImg' => '/storage/img/client/danchou.jpg',
             'occupation' => 'Business Owner'
         ]);
     }

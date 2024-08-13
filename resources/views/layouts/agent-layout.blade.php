@@ -44,9 +44,7 @@
       location.href = "/notFound";
     }
 
-    let [role, index] = identifier.split('_');
-
-    if (role != '07') {
+    if (identifier != '07') {
       location.href = "/notFound";
     }
   </script>
@@ -82,68 +80,104 @@
   @yield('script')
 
   <script>
-    async function fetchApi(url, method = 'GET', headers = {}, data = null) {
-      try {
-        const fetchOptions = {
-          method: method.toUpperCase(),
-          headers: headers,
-        };
+    // Utility functions
+    function displayUserData(userData) {
+      var userImage = document.querySelector('#user-img');
+      var userName = document.querySelector('#user-name');
+      var userFullName = document.querySelector('#user-fullName');
+      var userOccupation = document.querySelector('#user-occupation');
 
-        if (method.toUpperCase() !== 'GET' && data) {
-          fetchOptions.body = JSON.stringify(data);
-        }
+      if (!userData.profileImg) {
 
-        const response = await fetch(url, fetchOptions);
-        const responseData = await response.json();
+        userImage.setAttribute('src', '/avatar/agent-avatar.jpeg');
+      } else {
 
-        if (response.ok) {
-          return responseData;
-        } else {
-          throw new Error(`Request failed with status ${response.status}: ${responseData.message}`);
-        }
-      } catch (error) {
-        console.error('Fetch error:', error);
-        throw error;
+        userImage.setAttribute('src', userData.profileImg);
+      }
+
+      userName.innerHTML = userData.firstName[0].toUpperCase() + '.' + ' ' + userData.lastName;
+      userFullName.innerHTML = userData.firstName + ' ' + userData.lastName;
+
+      if (!userData.occupation) {
+
+        userOccupation.innerHTML = userData.role;
+      } else {
+
+        userOccupation.innerHTML = userData.occupation;
       }
     }
 
+    // When page is fully loaded
     addEventListener('DOMContentLoaded', function(event) {
+      var token = sessionStorage.getItem('danchou');
+
+      // Async functions
+      async function fetchUserData() {
+        try {
+          const userDataApi = '/api/users/loggedInUserData';
+
+          var additionalParameters = {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + token
+            }
+          }
+
+          const response = await fetch(userDataApi, additionalParameters);
+
+          if (response.status == 200) {
+            var data = await response.json();
+
+            if (data) {
+
+              displayUserData(data.data);
+            }
+          }
+
+        } catch (error) {
+          console.log('Error fetching user data', error.message)
+        }
+      }
+
       async function performLogout() {
         try {
-          var token = sessionStorage.getItem('danchou');
-          var roleId = sessionStorage.getItem('nice');
-          let [role, id] = roleId.split('_');
           const logoutApi = '/api/logout';
-          var method = 'POST';
-          var headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + token
+          var additionalParameters = {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + token
+            }
           };
-          const data = {
-            id: id
-          };
 
-          const response = await fetchApi(logoutApi, method, headers, data);
+          const response = await fetch(logoutApi, additionalParameters);
 
-          console.log('Logout response:', response.status);
+          if (response.status == 200) {
+            sessionStorage.removeItem('danchou');
+            sessionStorage.removeItem('nice');
 
-          sessionStorage.removeItem('danchou');
-          sessionStorage.removeItem('nice');
-
-          window.location.href = '/';
+            window.location.href = '/';
+          } else {
+            alert('Logout Failed');
+          }
 
         } catch (error) {
           alert('Logout error: ', error.message);
         }
       }
 
+      // Main function
+      fetchUserData();
+
       var logoutBtn = document.querySelector('#logoutBtn');
 
       logoutBtn.style.cursor = 'pointer';
 
       logoutBtn.addEventListener('click', function(event) {
-        
+
         performLogout();
       });
 

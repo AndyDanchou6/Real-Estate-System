@@ -23,7 +23,6 @@ class AgentSeeder extends Seeder
             'address' => 'Private',
             'phoneNo' => 'Private',
             'role' => 'agent',
-            'profileImg' => '/storage/img/agent/danchou.jpg',
             'occupation' => 'Real Estate Agent'
         ]);
     }

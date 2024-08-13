@@ -38,8 +38,8 @@
   ======================================================== -->
 
   <script>
-    if (sessionStorage.getItem('nice')) {
-      
+    if (sessionStorage.getItem('nice') || sessionStorage.getItem('danchou')) {
+
       window.history.back()
     }
   </script>
@@ -148,6 +148,14 @@
 
         inputForm.value = loginEmail;
       }
+
+      const min = 100000;
+      const max = 999999;
+
+      const anchor = Math.floor(Math.random() * (max - min + 1) + min);
+
+      console.log(anchor);
+
     });
   </script>
 
