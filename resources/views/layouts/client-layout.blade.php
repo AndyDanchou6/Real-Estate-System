@@ -39,12 +39,11 @@
 
   <script>
     var identifier = sessionStorage.getItem('nice');
-
     if (!identifier) {
       location.href = "/notFound";
     }
 
-    if (identifier != '31C') {
+    if (identifier != '3W') {
       location.href = "/notFound";
     }
   </script>
@@ -53,9 +52,9 @@
 
 <body>
 
-  @include('includes.admin.header')
+  @include('includes.client.header')
 
-  @include('includes.admin.sidebar')
+  @include('includes.client.sidebar')
 
   @yield('content')
 
@@ -89,12 +88,13 @@
 
       if (!userData.profileImg) {
 
-        userImage.setAttribute('src', '/avatar/admin-avatar.png');
+        userImage.setAttribute('src', '/avatar/user-avatar1.jpeg');
+
       } else {
 
         userImage.setAttribute('src', userData.profileImg);
       }
-
+      
       userName.innerHTML = userData.firstName[0].toUpperCase() + '.' + ' ' + userData.lastName;
       userFullName.innerHTML = userData.firstName + ' ' + userData.lastName;
 
@@ -144,9 +144,8 @@
       async function performLogout() {
         try {
           const logoutApi = '/api/logout';
-
           var additionalParameters = {
-            method: "GET",
+            method: 'GET',
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
@@ -170,7 +169,7 @@
         }
       }
 
-      // Main function
+      // Main functions
       fetchUserData();
 
       var logoutBtn = document.querySelector('#logoutBtn');

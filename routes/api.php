@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,15 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::post('/login', [UserController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::prefix('users')->group(function () {
+        Route::get('/all', [UserController::class, 'allUsers']);
+        Route::get('/loggedInUserData', [UserController::class, 'loggedInUserData']);
+    });
+
+    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/logins', [AuthController::class, 'logins']);
+});

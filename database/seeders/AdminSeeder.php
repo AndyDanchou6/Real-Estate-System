@@ -22,6 +22,7 @@ class AdminSeeder extends Seeder
             'address' => 'Private',
             'phoneNo' => 'Private',
             'role' => 'admin',
+            'occupation' => 'Software Developer'
         ]);
     }
 }

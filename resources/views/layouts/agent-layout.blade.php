@@ -38,8 +38,14 @@
   ======================================================== -->
 
   <script>
-    if (sessionStorage.getItem('role') != 'agent') {
-      location.href = '/notFound';
+    var identifier = sessionStorage.getItem('nice');
+
+    if (!identifier) {
+      location.href = "/notFound";
+    }
+
+    if (identifier != '07') {
+      location.href = "/notFound";
     }
   </script>
 
@@ -54,7 +60,7 @@
   @yield('content')
 
   @include('includes.footer')
-  
+
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -70,6 +76,113 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
+
+  @yield('script')
+
+  <script>
+    // Utility functions
+    function displayUserData(userData) {
+      var userImage = document.querySelector('#user-img');
+      var userName = document.querySelector('#user-name');
+      var userFullName = document.querySelector('#user-fullName');
+      var userOccupation = document.querySelector('#user-occupation');
+
+      if (!userData.profileImg) {
+
+        userImage.setAttribute('src', '/avatar/agent-avatar.jpeg');
+      } else {
+
+        userImage.setAttribute('src', userData.profileImg);
+      }
+
+      userName.innerHTML = userData.firstName[0].toUpperCase() + '.' + ' ' + userData.lastName;
+      userFullName.innerHTML = userData.firstName + ' ' + userData.lastName;
+
+      if (!userData.occupation) {
+
+        userOccupation.innerHTML = userData.role;
+      } else {
+
+        userOccupation.innerHTML = userData.occupation;
+      }
+    }
+
+    // When page is fully loaded
+    addEventListener('DOMContentLoaded', function(event) {
+      var token = sessionStorage.getItem('danchou');
+
+      // Async functions
+      async function fetchUserData() {
+        try {
+          const userDataApi = '/api/users/loggedInUserData';
+
+          var additionalParameters = {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + token
+            }
+          }
+
+          const response = await fetch(userDataApi, additionalParameters);
+
+          if (response.status == 200) {
+            var data = await response.json();
+
+            if (data) {
+
+              displayUserData(data.data);
+            }
+          }
+
+        } catch (error) {
+          console.log('Error fetching user data', error.message)
+        }
+      }
+
+      async function performLogout() {
+        try {
+          const logoutApi = '/api/logout';
+          var additionalParameters = {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + token
+            }
+          };
+
+          const response = await fetch(logoutApi, additionalParameters);
+
+          if (response.status == 200) {
+            sessionStorage.removeItem('danchou');
+            sessionStorage.removeItem('nice');
+
+            window.location.href = '/';
+          } else {
+            alert('Logout Failed');
+          }
+
+        } catch (error) {
+          alert('Logout error: ', error.message);
+        }
+      }
+
+      // Main function
+      fetchUserData();
+
+      var logoutBtn = document.querySelector('#logoutBtn');
+
+      logoutBtn.style.cursor = 'pointer';
+
+      logoutBtn.addEventListener('click', function(event) {
+
+        performLogout();
+      });
+
+    });
+  </script>
 
 </body>
 

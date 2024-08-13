@@ -6,52 +6,43 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function login(Request $request)
+
+    public function allUsers()
     {
-        try {
-            $validated = Validator::make($request->all(), [
-                'email' => 'required|email',
-                'password' => 'required|string'
+        $users = User::all();
+
+        if (!$users) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'No Users Found'
             ]);
-
-            if ($validated->fails()) {
-                return response()->json([
-                    'status' => 422,
-                    'message' => $validated->errors()
-                ]);
-            }
-
-            $emailExists = User::where('email', $request->email)->first();
-
-            if (!$emailExists) {
-                return response()->json([
-                    'status' => 400,
-                    'message' => 'Invalid email address'
-                ]);
-            }
-
-            $passwordMatched = Hash::check($request->password, $emailExists->password);
-
-            if (!$passwordMatched) {
-                return response()->json([
-                    'status' => 400,
-                    'message' => 'Incorrect password'
-                ]);
-            }
-
+        } else {
             return response()->json([
                 'status' => 200,
-                'message' => 'Password and Email Matched',
-                'user' => $emailExists
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 500,
-                'message' => $th->getMessage()
+                'message' => 'Users Found',
+                'data' => $users
             ]);
         }
+    }
+
+    public function loggedInUserData() {
+        $userData = Auth::user();
+
+        if (!$userData) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'User Not Found'
+            ]);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'User data found',
+            'data' => $userData
+        ]);
     }
 }
