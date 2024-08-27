@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PropertyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/logins', [AuthController::class, 'logins']);
 });
+
+
+Route::get('properties', [PropertyController::class, 'index']);
+Route::get('properties/{id}', [PropertyController::class, 'show']);
+Route::post('properties', [PropertyController::class, 'store']);
+Route::put('properties/{id}', [PropertyController::class, 'update']);
+Route::delete('properties/{id}', [PropertyController::class, 'destroy']);
+Route::get('properties/search', [PropertyController::class, 'search']);
