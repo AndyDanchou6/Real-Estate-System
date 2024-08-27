@@ -1,0 +1,140 @@
+:root {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    /* background: #f6f9ff;
+    color: #444444; */
+    background-image: url("../../images/real-estate-background1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Nunito", sans-serif;
+}
+
+/*--------------------------------------------------------------
+  # Main
+  --------------------------------------------------------------*/
+
+.bg-blue {
+    background-color: #012970;
+}
+
+.bg-light-blue {
+    background-color: #4154f1;
+}
+
+.color-blue {
+    color: #012970;
+}
+
+.color-light-blue {
+    color: #4154f1;
+}
+
+.hover-blue {
+    color: #717ff5;
+}
+
+/* Body */
+#header {
+    height: 60px;
+}
+
+.home-sidebar {
+    position: fixed;
+    top: 0;
+    right: -210px;
+    min-width: 200px;
+    height: 100%;
+    z-index: 3000;
+    transition: 1s ease;
+}
+
+.home-sidebar li a {
+    color: #494949;
+    margin-left: 20px;
+}
+
+.home-sidebar li:hover {
+    background-color: #717ff5;
+}
+.home-sidebar li:hover {
+    background-color: #717ff5;
+}
+
+.home-sidebar li:hover a {
+    color: white;
+}
+
+#content {
+    overflow-y: auto;
+    height: calc(100vh - 60px);
+
+}
+
+#banner {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+#tagline {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #797979;
+    opacity: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-data {
+    width: 95%;
+    margin: 20px auto;
+}
+
+#property-detail-img {
+    height: 80vh;
+}
+
+@media screen and (max-width: 767px) {
+    #property-detail-img {
+        height: 50vh;
+    }
+}
+
+#footer {
+    background-color: #ffffff;
+    opacity: 0.9;
+    margin-top: 20px;
+    border: 1px solid rgb(184, 184, 184);
+}

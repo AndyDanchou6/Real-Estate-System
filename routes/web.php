@@ -14,8 +14,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+    return view('home');
+})->name('home');
+
+Route::get('/houses', function () {
+    return view('houses');
+})->name('houses');
+
+Route::get('/land', function () {
+    return view('land');
+})->name('land');
+
+Route::get('/commercial', function () {
+    return view('commercial');
+})->name('commercial');
+
+Route::get('/property/details', function () {
+    return view('property_details');
+})->name('property_details');
 
 Route::get('/login', function () {
     return view('auth.pages-login');
