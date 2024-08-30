@@ -16,13 +16,18 @@
        </a>
        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          <li>
-           <a href="#">
-             <i class="bi bi-circle"></i><span>Sold</span>
+           <a href="/agent/properties/all">
+             <i class="bi bi-circle"></i><span>All</span>
            </a>
          </li>
          <li>
-           <a href="#">
-             <i class="bi bi-circle"></i><span>Rented</span>
+           <a href="/agent/properties/forSale">
+             <i class="bi bi-circle"></i><span>For Sale</span>
+           </a>
+         </li>
+         <li>
+           <a href="/agent/properties/forRent">
+             <i class="bi bi-circle"></i><span>For Rent</span>
            </a>
          </li>
          <li>
@@ -31,31 +36,19 @@
            </a>
          </li>
          <li>
-           <a href="#">
-             <i class="bi bi-circle"></i><span>No Contacts</span>
-           </a>
-         </li>
-         <li>
-           <a href="#">
-             <i class="bi bi-circle"></i><span>All</span>
+           <a href="/agent/properties/add">
+             <i class="bi bi-circle"></i><span>Add New</span>
            </a>
          </li>
        </ul>
      </li><!-- End Components Nav -->
 
      <li class="nav-item">
-       <a class="nav-link collapsed" href="">
+       <a class="nav-link collapsed" href="/agent/appointment">
          <i class="bi bi-clipboard-data"></i>
          <span>Appointments</span>
        </a>
      </li><!-- End Appointments Nav -->
-
-     <li class="nav-item">
-       <a class="nav-link collapsed" href="">
-         <i class="bi bi-people"></i>
-         <span>Clients</span>
-       </a>
-     </li><!-- End Clients Nav -->
 
      <li class="nav-item">
        <a class="nav-link collapsed" href="">

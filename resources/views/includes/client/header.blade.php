@@ -25,6 +25,12 @@
                   </a>
               </li><!-- End Search Icon-->
 
+              <li>
+                  <a class="nav-link nav-icon" href="/">
+                      <i class="bi bi-shop"></i>
+                  </a>
+              </li>
+
               <li class="nav-item dropdown">
 
                   <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -146,7 +152,7 @@
 
                       <li class="message-item">
                           <a href="#">
-                            <img src="{{ asset('assets/img/messages-3.jpg')}}" alt="" class="rounded-circle">
+                              <img src="{{ asset('assets/img/messages-3.jpg')}}" alt="" class="rounded-circle">
                               <div>
                                   <h4>David Muldon</h4>
                                   <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -183,7 +189,7 @@
                       </li>
 
                       <li>
-                          <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                          <a class="dropdown-item d-flex align-items-center" href="/client/profile">
                               <i class="bi bi-person"></i>
                               <span>My Profile</span>
                           </a>
@@ -193,7 +199,7 @@
                       </li>
 
                       <li>
-                          <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                          <a class="dropdown-item d-flex align-items-center" href="/client/profile">
                               <i class="bi bi-gear"></i>
                               <span>Account Settings</span>
                           </a>
@@ -203,7 +209,7 @@
                       </li>
 
                       <li>
-                          <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                          <a class="dropdown-item d-flex align-items-center" href="">
                               <i class="bi bi-question-circle"></i>
                               <span>Need Help?</span>
                           </a>

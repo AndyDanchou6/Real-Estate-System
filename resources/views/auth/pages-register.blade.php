@@ -39,7 +39,7 @@
 
   <script>
     if (sessionStorage.getItem('nice')) {
-      
+
       window.history.back()
     }
   </script>
@@ -69,7 +69,7 @@
 
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                    <p class="text-center small">Enter your personal details to create account</p>
+                    <p class="text-center small">Enter your persona to create account</p>
                   </div>
 
                   <form class="row g-3 needs-validation" novalidate>
@@ -89,6 +89,27 @@
                       <label for="yourEmail" class="form-label">Your Email</label>
                       <input type="email" name="email" class="form-control" id="yourEmail" required>
                       <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="address" class="form-label">Your Address</label>
+                      <input type="string" name="address" class="form-control" id="address" required>
+                      <div class="invalid-feedback">Please enter a valid adddress!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="phoneNo" class="form-label">Your Phone No.</label>
+                      <input type="string" name="phoneNo" class="form-control" id="phoneNo" required>
+                      <div class="invalid-feedback">Please enter a valid phone number!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="role" class="form-label">What do you want to do?</label>
+                      <select name="role" id="role" class="form-select" required>
+                        <option value="" selected>Required</option>
+                        <option value="agent">I want to sell</option>
+                        <option value="client">I want to buy</option>
+                      </select>
                     </div>
 
                     <!-- <div class="col-12">
@@ -157,6 +178,57 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
+
+  <script src="{{ asset('sweetalert/sweetalert.min.js') }}"></script>
+  <script src="{{ asset('sweetalert/popups.js') }}"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.querySelector('form');
+
+      form.addEventListener('submit', async function(event) {
+
+        event.preventDefault();
+
+        var formData = new FormData(form);
+        var apiUrl = '/api/register';
+        var parameters = {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+          },
+          body: formData,
+        }
+
+        try {
+          var response = await fetch(apiUrl, parameters);
+          var data = await response.json();
+
+          if (data.status == 200) {
+            swal({
+              title: "Successful",
+              text: "Registered successfully",
+              icon: "success",
+              button: "Continue",
+            }).then(data => {
+              location.href = '/login'
+            });
+          } else {
+
+            swal({
+              title: "Error",
+              text: "Registration failed",
+              icon: "warning",
+              button: "Continue",
+            });
+          }
+        } catch (error) {
+          console.log("Network is bad".error.message)
+        }
+
+      })
+    })
+  </script>
 
 </body>
 
