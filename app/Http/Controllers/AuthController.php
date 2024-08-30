@@ -142,4 +142,34 @@ class AuthController extends Controller
             'data' => $logins
         ]);
     }
+
+    public function changePassword(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $currentPass = $request->input('currentPassword');
+        if (!Hash::check($currentPass, $user->password)) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Password does not match',
+            ]);
+        }
+
+        $user->password = Hash::make($request->input('newPassword'));
+
+        if ($user->save()) {
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Password updated successfully',
+            ]);
+        }
+
+        return response()->json([
+            'status' => 500,
+            'message' => 'Password update error!',
+            'data' => $request->currentPassword
+        ]);
+    }
 }

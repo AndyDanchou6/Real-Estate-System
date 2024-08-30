@@ -11,16 +11,16 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="/admin/agents">
           <i class="bi bi-people"></i>
           <span>Agents</span>
         </a>
       </li><!-- End Clients Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="/admin/clients">
           <i class="bi bi-person"></i>
-          <span>Users</span>
+          <span>Clients</span>
         </a>
       </li><!-- End Profile Page Nav -->
 

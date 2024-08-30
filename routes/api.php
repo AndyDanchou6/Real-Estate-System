@@ -26,6 +26,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('/all', [UserController::class, 'allUsers']);
         Route::get('/loggedInUserData', [UserController::class, 'loggedInUserData']);
+        Route::post('/update', [UserController::class, 'update']);
+        Route::post('/changePass', [AuthController::class, 'changePassword']);
+        Route::get('/clients', [UserController::class, 'clients']);
+        Route::get('/agents', [UserController::class, 'agents']);
     });
 
     Route::prefix('properties')->group(function () {

@@ -45,6 +45,7 @@ Route::get('/notFound', function () {
     return view('errorPages.page404');
 })->name('error.notFound');
 
+// Client
 Route::prefix('client')->group(function () {
 
     Route::get('/dashboard', function () {
@@ -60,6 +61,7 @@ Route::prefix('client')->group(function () {
     })->name('client.appointment');
 });
 
+// Agent
 Route::prefix('agent')->group(function () {
     Route::get('/dashboard', function () {
         return view('agent.dashboard');
@@ -84,10 +86,27 @@ Route::prefix('agent')->group(function () {
     Route::get('/appointment', function () {
         return view('agent.appointment');
     })->name('agent.appointment');
+
+    Route::get('/profile', function () {
+        return view('agent.profile');
+    })->name('agent.profile');
 });
 
+// Admin
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+
+    Route::get('/profile', function () {
+        return view('admin.profile');
+    })->name('admin.profile');
+
+    Route::get('/clients', function () {
+        return view('admin.clients');
+    })->name('admin.clients');
+
+    Route::get('/agents', function () {
+        return view('admin.agents');
+    })->name('admin.agents');
 });

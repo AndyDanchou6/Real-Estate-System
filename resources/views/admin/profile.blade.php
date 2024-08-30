@@ -1,6 +1,6 @@
-@extends('layouts.client-layout')
+@extends('layouts.admin-layout')
 
-@section('title', "Real Estate - Client's Profile")
+@section('title', "Real Estate - Admin's Profile")
 
 @section('content')
 
@@ -10,8 +10,8 @@
         <h1>Profile</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Client</li>
+                <li class="breadcrumb-item"><a href="">Home</a></li>
+                <li class="breadcrumb-item">Admin</li>
                 <li class="breadcrumb-item active">Profile</li>
             </ol>
         </nav>
@@ -64,7 +64,7 @@
                                     <div class="row mb-3">
                                         <label for="" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <img src="/avatar/user-avatar1.jpeg" alt="Profile">
+                                            <img src="/avatar/admin-avatar.png" alt="Profile">
                                         </div>
                                     </div>
 
@@ -218,7 +218,7 @@
 
                 var profileImg = data.profileImg
                 if (data.profileImg == null) {
-                    profileImg = '/avatar/user-avatar1.jpeg'
+                    profileImg = '/avatar/admin-avatar.png'
                 }
                 var details = `
                         <img src="${profileImg}" alt="Profile" class="rounded-circle">
@@ -296,9 +296,7 @@
             var phoneNoEdit = document.querySelector('#phoneNoEdit');
             var emailEdit = document.querySelector('#emailEdit');
 
-            if (data.profileImg) {
-                profileImage.setAttribute('src', data.profileImg);
-            }
+            profileImage.setAttribute('src', data.profileImg);
 
             firstNameEdit.setAttribute('value', data.firstName);
             middleNameEdit.setAttribute('value', data.middleName);
