@@ -94,7 +94,7 @@
 
         userImage.setAttribute('src', userData.profileImg);
       }
-      
+
       userName.innerHTML = userData.firstName[0].toUpperCase() + '.' + ' ' + userData.lastName;
       userFullName.innerHTML = userData.firstName + ' ' + userData.lastName;
 
@@ -183,7 +183,9 @@
 
     });
   </script>
-
+  
+  <script src="{{ asset('sweetalert/sweetalert.min.js') }}"></script>
+  <script src="{{ asset('sweetalert/popups.js') }}"></script>
 </body>
 
 </html>

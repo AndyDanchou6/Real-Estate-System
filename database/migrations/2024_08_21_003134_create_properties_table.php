@@ -23,7 +23,9 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->integer('price')->nullable();
             $table->integer('term')->nullable();
+            $table->integer('monthly')->nullable();
             $table->integer('rent')->nullable();
+            $table->string('adType');
             $table->timestamps();
             
 

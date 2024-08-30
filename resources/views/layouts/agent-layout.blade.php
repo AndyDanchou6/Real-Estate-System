@@ -183,6 +183,9 @@
 
     });
   </script>
+  
+  <script src="{{ asset('sweetalert/sweetalert.min.js') }}"></script>
+  <script src="{{ asset('sweetalert/popups.js') }}"></script>
 
 </body>
 

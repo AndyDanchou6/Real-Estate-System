@@ -41,8 +41,8 @@
                             <li class="px-3"><a href="/houses" class="text-white">House</a></li>
                             <li class="px-3"><a href="/commercial" class="text-white">Commercial</a></li>
                             <li class="px-3">
-                                <a href="/login" class="text-white" id="signIn-link">Login</a>
-                                <a href="" class="text-white d-none" id="dashboard-link">Dashboard</a>
+                                <a href="/login" class="text-white signIn-link">Login</a>
+                                <a href="" class="text-white d-none dashboard-link">Dashboard</a>
                             </li>
                         </ul>
                     </nav>
@@ -61,10 +61,10 @@
                         <li class="py-3"><a href="/houses" id="house-link">House</a></li>
                         <li class="py-3"><a href="/commercial" id="commercial-link">Commercial</a></li>
                         <li class="py-3">
-                            <a href="/login" id="signIn-link">Login</a>
-                            <a href="" class="d-none" id="dashboard-link">Dashboard</a>
+                            <a href="/login" class="signIn-link">Login</a>
+                            <a href="" class="d-none dashboard-link">Dashboard</a>
                         </li>
-                        <li class="py-3" id="home-sidebar-closeBtn"><a href="">Close</a></li>
+                        <li class="py-3" id="home-sidebar-closeBtn"><a>Close</a></li>
                     </ul>
                 </nav>
             </div>
@@ -113,17 +113,44 @@
 
 </body>
 
+<script src="{{ asset('sweetalert/sweetalert.min.js') }}"></script>
+<script src="{{ asset('sweetalert/popups.js') }}"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
 
-        const signInLink = document.querySelector('#signIn-link');
-        const dashboardLink = document.querySelector('#dashboard-link');
-        const loggedIn = sessionStorage.getItem('danchou');
+        function dashboardLink() {
+            const signInLink = document.querySelectorAll('.signIn-link');
+            const dashboardLink = document.querySelectorAll('.dashboard-link');
+            const loggedIn = sessionStorage.getItem('danchou');
 
-        if (loggedIn) {
+            if (loggedIn) {
 
-            signInLink.classList.add('d-none');
-            dashboardLink.classList.remove('d-none');
+                signInLink.forEach(signIn => {
+                    signIn.classList.add('d-none');
+                })
+
+                dashboardLink.forEach(link => {
+                    link.classList.remove('d-none');
+                })
+            }
+        }
+
+        function redirectToDashboard() {
+            var identifier = sessionStorage.getItem('nice');
+            var dashboards = document.querySelectorAll('.dashboard-link');
+
+            dashboards.forEach(dashboard => {
+                if (identifier == "31C") {
+                    dashboard.setAttribute('href', '/admin/dashboard');
+                } else if (identifier == "07") {
+                    dashboard.setAttribute('href', '/agent/dashboard');
+                } else if (identifier == "3W") {
+                    dashboard.setAttribute('href', '/client/dashboard');
+                } else {
+                    dashboard.setAttribute('href', '/');
+                }
+            })
         }
 
         const sidebarToggle = document.querySelector('#sidebar-toggle');
@@ -144,20 +171,31 @@
             homeSidebar.style.right = '-210px';
         })
 
-        var properties = document.querySelectorAll('.property-summary');
+        function redirectToDetail() {
 
-        properties.forEach(function(property) {
-            property.addEventListener('click', function() {
-                var propertyId = property.querySelector('.property-id').textContent;
+            var properties = document.querySelectorAll('.property-summary');
 
-                if (propertyId) {
+            properties.forEach(function(property) {
+                property.addEventListener('click', function() {
+                    var propertyId = property.querySelector('.property-id').textContent;
 
-                    sessionStorage.setItem('propertyId', propertyId);
+                    if (propertyId) {
 
-                    location.href = '/property/details';
-                }
+                        sessionStorage.setItem('propertyId', propertyId);
+
+                        location.href = '/property/details';
+                    }
+                })
             })
-        })
+
+            setTimeout(() => {
+                redirectToDetail();
+            }, 2000);
+        }
+
+        redirectToDetail();
+        dashboardLink();
+        redirectToDashboard();
     })
 </script>
 

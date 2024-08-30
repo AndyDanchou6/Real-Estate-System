@@ -11,7 +11,7 @@ class Property extends Model
 
     protected $fillable = [
         'agent_id', 'title', 'owner', 'type', 'size', 'bedrooms',
-        'location', 'image', 'price', 'term', 'rent',
+        'location', 'image', 'price', 'term', 'rent', 'adType',
     ];
 
     public function agent()
