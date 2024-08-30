@@ -296,7 +296,9 @@
             var phoneNoEdit = document.querySelector('#phoneNoEdit');
             var emailEdit = document.querySelector('#emailEdit');
 
-            profileImage.setAttribute('src', data.profileImg);
+            if (data.profileImg) {
+                profileImage.setAttribute('src', data.profileImg);
+            }
 
             firstNameEdit.setAttribute('value', data.firstName);
             middleNameEdit.setAttribute('value', data.middleName);
