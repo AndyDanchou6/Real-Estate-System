@@ -67,7 +67,7 @@ class PropertyController extends Controller
 
         if ($request->hasFile('image')) {
             $avatarPath = $request->file('image')->store('img', 'public');
-            $property->image = 'storage/' . $avatarPath;
+            $property->image = '/storage/' . $avatarPath;
         }
 
         $property->title = $request->input('title');

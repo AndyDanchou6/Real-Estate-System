@@ -75,6 +75,9 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
+    
+  <script src="{{ asset('sweetalert/sweetalert.min.js') }}"></script>
+  <script src="{{ asset('sweetalert/popups.js') }}"></script>
 
   @yield('script')
 
@@ -183,9 +186,7 @@
 
     });
   </script>
-  
-  <script src="{{ asset('sweetalert/sweetalert.min.js') }}"></script>
-  <script src="{{ asset('sweetalert/popups.js') }}"></script>
+
 </body>
 
 </html>
