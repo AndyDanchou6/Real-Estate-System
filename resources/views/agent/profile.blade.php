@@ -64,7 +64,7 @@
                                     <div class="row mb-3">
                                         <label for="" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <img src="/avatar/agent-avatar.jpeg" alt="Profile">
+                                            <img src="/avatar/agent-avatar.jpeg" alt="Profile" id="profileImg">
                                         </div>
                                     </div>
 
